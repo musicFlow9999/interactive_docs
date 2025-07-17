@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""Generate interactive HTML from a Dynatrace taxonomy JSON file."""
+"""Generate interactive HTML from a Dynatrace taxonomy JSON file.
+
+The generated HTML allows users to store custom internal links for each page.
+Each link can have a custom name and description which are persisted in the
+browser's localStorage.
+"""
 import json
 import argparse
 from pathlib import Path
@@ -56,10 +61,16 @@ Object.values(data.structure).forEach(sec => container.appendChild(createSection
 function refreshLinks() {{
   document.querySelectorAll('.internal-link').forEach(span => {{
     const url = span.dataset.url;
-    const stored = JSON.parse(localStorage.getItem('internal-' + url) || '[]');
+    let stored = JSON.parse(localStorage.getItem('internal-' + url) || '[]');
+    if (stored.length && typeof stored[0] === 'string') {{
+      stored = stored.map(l => ({{url: l, name: '', description: ''}}));
+      localStorage.setItem('internal-' + url, JSON.stringify(stored));
+    }}
     span.innerHTML = '';
     stored.forEach((link, idx) => {{
-      span.innerHTML += `<a href="${{link}}" target="_blank">internal ${{idx + 1}}</a>` +
+      const text = link.name || `internal ${{idx + 1}}`;
+      const desc = link.description ? ` <span class="description">- ${{link.description}}</span>` : '';
+      span.innerHTML += `<a href="${{link.url}}" target="_blank">${{text}}</a>${{desc}}` +
                         ` <button class="edit-link" data-index="${{idx}}">edit</button>` +
                         ` <button class="delete-link" data-index="${{idx}}">delete</button> `;
     }});
@@ -72,22 +83,29 @@ document.body.addEventListener('click', ev => {{
   const span = ev.target.closest('.internal-link');
   if (!span) return;
   const url = span.dataset.url;
-  const stored = JSON.parse(localStorage.getItem('internal-' + url) || '[]');
+  let stored = JSON.parse(localStorage.getItem('internal-' + url) || '[]');
+  if (stored.length && typeof stored[0] === 'string') {{
+    stored = stored.map(l => ({{url: l, name: '', description: ''}}));
+  }}
 
   if (ev.target.classList.contains('add-link')) {{
     const link = prompt('Enter internal link URL:');
     if (link) {{
-      stored.push(link);
+      const name = prompt('Enter link name (optional):') || '';
+      const desc = prompt('Enter link description (optional):') || '';
+      stored.push({{url: link, name: name, description: desc}});
       localStorage.setItem('internal-' + url, JSON.stringify(stored));
       refreshLinks();
     }}
   }} else if (ev.target.classList.contains('edit-link')) {{
     const idx = parseInt(ev.target.dataset.index, 10);
-    const current = stored[idx] || '';
-    const link = prompt('Enter internal link URL:', current);
+    const current = stored[idx] || {{url: '', name: '', description: ''}};
+    const link = prompt('Enter internal link URL:', current.url);
     if (link !== null) {{
       if (link) {{
-        stored[idx] = link;
+        const name = prompt('Enter link name (optional):', current.name || '') || '';
+        const desc = prompt('Enter link description (optional):', current.description || '') || '';
+        stored[idx] = {{url: link, name: name, description: desc}};
       }} else {{
         stored.splice(idx, 1);
       }}
