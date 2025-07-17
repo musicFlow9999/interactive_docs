@@ -1,6 +1,7 @@
 import json
 from pathlib import Path
 from urllib.parse import urljoin, urlparse
+import argparse
 
 import requests
 from bs4 import BeautifulSoup
@@ -66,6 +67,44 @@ def crawl_docs(start_url: str) -> dict:
     return root if root else {}
 
 
+def _convert_section(section: dict, base_url: str) -> dict:
+    """Recursively convert a taxonomy section to the crawler node format."""
+    if "vendor_url" in section:
+        url = section["vendor_url"]
+    elif "url_pattern" in section:
+        url = urljoin(base_url + "/", section["url_pattern"].lstrip("/"))
+    else:
+        url = base_url
+
+    node = {
+        "title": section.get("title", url),
+        "url": url,
+        "description": section.get("description", ""),
+        "children": [],
+    }
+
+    for sub in section.get("sections", {}).values():
+        node["children"].append(_convert_section(sub, base_url))
+    for sub in section.get("subsections", {}).values():
+        node["children"].append(_convert_section(sub, base_url))
+    for sub in section.get("subpages", {}).values():
+        node["children"].append(_convert_section(sub, base_url))
+
+    return node
+
+
+def load_taxonomy(file_path: str) -> dict:
+    """Load a taxonomy JSON file and return the hierarchy node."""
+    with open(file_path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+    if not data:
+        return {}
+    root_key, root_val = next(iter(data.items()))
+    base_url = root_val.get("base_url", BASE_URL)
+    root = _convert_section(root_val, base_url)
+    return root
+
+
 def render_html(root: dict, output_file: str) -> None:
     """Render a hierarchy node to an interactive HTML file."""
     html_parts = [
@@ -101,7 +140,16 @@ def render_html(root: dict, output_file: str) -> None:
 
 
 if __name__ == "__main__":
-    toc = crawl_docs(DOCS_URL)
-    render_html(toc, 'docs_hierarchy.html')
+    parser = argparse.ArgumentParser(description="Generate Dynatrace docs hierarchy")
+    parser.add_argument("--taxonomy", help="Path to starter taxonomy JSON file", default=None)
+    parser.add_argument("--output", help="HTML output file", default="docs_hierarchy.html")
+    args = parser.parse_args()
+
+    if args.taxonomy:
+        toc = load_taxonomy(args.taxonomy)
+    else:
+        toc = crawl_docs(DOCS_URL)
+
+    render_html(toc, args.output)
     with open('docs_hierarchy.json', 'w', encoding='utf-8') as f:
         json.dump(toc, f, indent=2)
