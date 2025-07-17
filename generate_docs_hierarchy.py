@@ -3,15 +3,18 @@
 
 The generated HTML allows users to store custom internal links for each page.
 Each link can have a custom name and description which are persisted in the
-browser's localStorage.
+browser's localStorage. Optionally, links can be saved to and loaded from a
+remote server if a storage URL is provided when generating the HTML.
 """
 import json
 import argparse
 from pathlib import Path
+from typing import Optional
 
 
-def build_html(data: dict) -> str:
+def build_html(data: dict, server_url: Optional[str] = None) -> str:
     json_str = json.dumps(data)
+    server_json = json.dumps(server_url) if server_url else 'null'
     html = f"""
 <!doctype html>
 <html lang="en">
@@ -40,6 +43,7 @@ def build_html(data: dict) -> str:
 <script id="taxonomy-data" type="application/json">{json_str}</script>
 <script>
 const data = JSON.parse(document.getElementById('taxonomy-data').textContent);
+const SERVER_URL = {server_json};
 function createSection(section) {{
   const details = document.createElement('details');
   const summary = document.createElement('summary');
@@ -65,38 +69,76 @@ function createSection(section) {{
 }}
 const container = document.getElementById('tree');
 Object.values(data.structure).forEach(sec => container.appendChild(createSection(sec)));
-function refreshLinks() {{
-  document.querySelectorAll('.internal-link-list').forEach(ul => {{
-    const url = ul.dataset.url;
-    let stored = JSON.parse(localStorage.getItem('internal-' + url) || '[]');
-    if (stored.length && typeof stored[0] === 'string') {{
-      stored = stored.map(l => ({{url: l, name: '', description: ''}}));
-      localStorage.setItem('internal-' + url, JSON.stringify(stored));
+async function loadLinks(url) {{
+  if (SERVER_URL) {{
+    try {{
+      const resp = await fetch(`${{SERVER_URL}}/links/${{encodeURIComponent(url)}}`);
+      if (resp.ok) return await resp.json();
+    }} catch (e) {{}}
+    return [];
+  }} else {{
+    let stored = JSON.parse(localStorage.getItem("internal-" + url) || "[]");
+    if (stored.length && typeof stored[0] === "string") {{
+      stored = stored.map(l => ({{url: l, name: "", description: ""}}));
+      localStorage.setItem("internal-" + url, JSON.stringify(stored));
     }}
-    ul.innerHTML = '';
+    return stored;
+  }}
+}}
+
+async function saveLinks(url, links) {{
+  if (SERVER_URL) {{
+    await fetch(`${{SERVER_URL}}/links/${{encodeURIComponent(url)}}`, {{
+      method: "POST",
+      headers: {{"Content-Type": "application/json"}},
+      body: JSON.stringify(links)
+    }});
+  }} else {{
+    if (links.length) {{
+      localStorage.setItem("internal-" + url, JSON.stringify(links));
+    }} else {{
+      localStorage.removeItem("internal-" + url);
+    }}
+  }}
+}}
+
+async function refreshLinks() {{
+  const lists = document.querySelectorAll(".internal-link-list");
+  for (const ul of lists) {{
+    const url = ul.dataset.url;
+    const stored = await loadLinks(url);
+    ul.innerHTML = "";
     stored.forEach((link, idx) => {{
-      const li = document.createElement('li');
+      const li = document.createElement("li");
       const text = link.name || `internal ${{idx + 1}}`;
-      const desc = link.description ? ` <span class="description">- ${{link.description}}</span>` : '';
+      const desc = link.description ? ` <span class="description">- ${{link.description}}</span>` : "";
       li.innerHTML = `<a href="${{link.url}}" target="_blank">${{text}}</a>${{desc}}` +
                      ` <button class="edit-link" data-index="${{idx}}">edit</button>` +
                      ` <button class="delete-link" data-index="${{idx}}">delete</button>`;
       ul.appendChild(li);
     }});
-    const addLi = document.createElement('li');
+    const addLi = document.createElement("li");
     addLi.innerHTML = `<button class="add-link">add internal link</button>`;
     ul.appendChild(addLi);
-  }});
+  }}
 }}
 refreshLinks();
 
+
 // Export links to a JSON file
-document.getElementById('export-links').addEventListener('click', () => {{
-  const store = {{}};
-  for (let i = 0; i < localStorage.length; i++) {{
-    const key = localStorage.key(i);
-    if (key && key.startsWith('internal-')) {{
-      store[key.slice('internal-'.length)] = JSON.parse(localStorage.getItem(key));
+document.getElementById('export-links').addEventListener('click', async () => {{
+  let store = {{}};
+  if (SERVER_URL) {{
+    const resp = await fetch(`${{SERVER_URL}}/links`);
+    if (resp.ok) {{
+      store = await resp.json();
+    }}
+  }} else {{
+    for (let i = 0; i < localStorage.length; i++) {{
+      const key = localStorage.key(i);
+      if (key && key.startsWith('internal-')) {{
+        store[key.slice('internal-'.length)] = JSON.parse(localStorage.getItem(key));
+      }}
     }}
   }}
   const blob = new Blob([JSON.stringify(store, null, 2)], {{type: 'application/json'}});
@@ -112,17 +154,25 @@ document.getElementById('export-links').addEventListener('click', () => {{
 document.getElementById('import-links').addEventListener('click', () => {{
   document.getElementById('import-file').click();
 }});
-document.getElementById('import-file').addEventListener('change', ev => {{
+document.getElementById('import-file').addEventListener('change', async ev => {{
   const file = ev.target.files[0];
   if (!file) return;
   const reader = new FileReader();
-  reader.onload = e => {{
+  reader.onload = async e => {{
     try {{
       const data = JSON.parse(e.target.result);
-      Object.entries(data).forEach(([url, links]) => {{
-        localStorage.setItem('internal-' + url, JSON.stringify(links));
-      }});
-      refreshLinks();
+      if (SERVER_URL) {{
+        await fetch(`${{SERVER_URL}}/links`, {{
+          method: 'POST',
+          headers: {{'Content-Type': 'application/json'}},
+          body: JSON.stringify(data)
+        }});
+      }} else {{
+        Object.entries(data).forEach(([url, links]) => {{
+          localStorage.setItem('internal-' + url, JSON.stringify(links));
+        }});
+      }}
+      await refreshLinks();
       alert('Links imported');
     }} catch(err) {{
       alert('Failed to import links: ' + err);
@@ -132,14 +182,11 @@ document.getElementById('import-file').addEventListener('change', ev => {{
   ev.target.value = '';
 }});
 
-document.body.addEventListener('click', ev => {{
+document.body.addEventListener('click', async ev => {{
   const ul = ev.target.closest('.internal-link-list');
   if (!ul) return;
   const url = ul.dataset.url;
-  let stored = JSON.parse(localStorage.getItem('internal-' + url) || '[]');
-  if (stored.length && typeof stored[0] === 'string') {{
-    stored = stored.map(l => ({{url: l, name: '', description: ''}}));
-  }}
+  let stored = await loadLinks(url);
 
   if (ev.target.classList.contains('add-link')) {{
     const link = prompt('Enter internal link URL:');
@@ -147,8 +194,8 @@ document.body.addEventListener('click', ev => {{
       const name = prompt('Enter link name (optional):') || '';
       const desc = prompt('Enter link description (optional):') || '';
       stored.push({{url: link, name: name, description: desc}});
-      localStorage.setItem('internal-' + url, JSON.stringify(stored));
-      refreshLinks();
+      await saveLinks(url, stored);
+      await refreshLinks();
     }}
   }} else if (ev.target.classList.contains('edit-link')) {{
     const idx = parseInt(ev.target.dataset.index, 10);
@@ -162,22 +209,14 @@ document.body.addEventListener('click', ev => {{
       }} else {{
         stored.splice(idx, 1);
       }}
-      if (stored.length) {{
-        localStorage.setItem('internal-' + url, JSON.stringify(stored));
-      }} else {{
-        localStorage.removeItem('internal-' + url);
-      }}
-      refreshLinks();
+      await saveLinks(url, stored);
+      await refreshLinks();
     }}
   }} else if (ev.target.classList.contains('delete-link')) {{
     const idx = parseInt(ev.target.dataset.index, 10);
     stored.splice(idx, 1);
-    if (stored.length) {{
-      localStorage.setItem('internal-' + url, JSON.stringify(stored));
-    }} else {{
-      localStorage.removeItem('internal-' + url);
-    }}
-    refreshLinks();
+    await saveLinks(url, stored);
+    await refreshLinks();
   }}
 }});
 </script>
@@ -191,6 +230,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Generate interactive docs hierarchy HTML")
     parser.add_argument('--taxonomy', default='dynatrace_fast_taxonomy.json', help='Path to taxonomy JSON file')
     parser.add_argument('--output', default='docs_hierarchy.html', help='Output HTML file')
+    parser.add_argument('--server-url', help='Base URL of storage server')
     args = parser.parse_args()
 
     taxonomy_path = Path(args.taxonomy)
@@ -200,7 +240,7 @@ def main() -> None:
     with taxonomy_path.open() as f:
         data = json.load(f)
 
-    html = build_html(data)
+    html = build_html(data, server_url=args.server_url)
     output_path = Path(args.output)
     output_path.write_text(html, encoding='utf-8')
     print(f"Generated {output_path}")
