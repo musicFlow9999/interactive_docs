@@ -1,6 +1,6 @@
 # Dynatrace Docs Hierarchy Generator
 
-This repo contains a small script that crawls the public Dynatrace documentation site and generates an interactive HTML page listing the hierarchy of topics. Each entry links back to the official vendor documentation as well as a placeholder link for internal documentation.
+This repo contains a small script that crawls the public Dynatrace documentation site and generates an interactive HTML page listing the hierarchy of topics. The crawler recursively follows links within the Dynatrace docs to build a nested tree. Each entry links back to the official vendor documentation as well as a placeholder link for internal documentation.
 
 ## Requirements
 
@@ -18,7 +18,7 @@ python generate_docs_hierarchy.py
 The script retrieves the Dynatrace documentation pages starting from `https://docs.dynatrace.com/docs`, builds a nested structure, and then writes:
 
 - `docs_hierarchy.json` – a JSON representation of the hierarchy
-- `docs_hierarchy.html` – an interactive webpage using HTML `<details>` elements
+- `docs_hierarchy.html` – an interactive webpage listing pages with placeholder internal links
 
 Open `docs_hierarchy.html` in your browser to explore the hierarchy.
 
