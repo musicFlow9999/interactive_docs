@@ -56,30 +56,57 @@ Object.values(data.structure).forEach(sec => container.appendChild(createSection
 function refreshLinks() {{
   document.querySelectorAll('.internal-link').forEach(span => {{
     const url = span.dataset.url;
-    const stored = localStorage.getItem('internal-' + url);
-    if (stored) {{
-      span.innerHTML = `<a href="${{stored}}" target="_blank">internal</a> <button class="edit-link">edit</button>`;
-    }} else {{
-      span.innerHTML = `<button class="add-link">add internal link</button>`;
-    }}
+    const stored = JSON.parse(localStorage.getItem('internal-' + url) || '[]');
+    span.innerHTML = '';
+    stored.forEach((link, idx) => {{
+      span.innerHTML += `<a href="${{link}}" target="_blank">internal ${{idx + 1}}</a>` +
+                        ` <button class="edit-link" data-index="${{idx}}">edit</button>` +
+                        ` <button class="delete-link" data-index="${{idx}}">delete</button> `;
+    }});
+    span.innerHTML += `<button class="add-link">add internal link</button>`;
   }});
 }}
 refreshLinks();
 
 document.body.addEventListener('click', ev => {{
-  if (ev.target.classList.contains('add-link') || ev.target.classList.contains('edit-link')) {{
-    const span = ev.target.parentElement;
-    const url = span.dataset.url;
-    const current = localStorage.getItem('internal-' + url) || '';
+  const span = ev.target.closest('.internal-link');
+  if (!span) return;
+  const url = span.dataset.url;
+  const stored = JSON.parse(localStorage.getItem('internal-' + url) || '[]');
+
+  if (ev.target.classList.contains('add-link')) {{
+    const link = prompt('Enter internal link URL:');
+    if (link) {{
+      stored.push(link);
+      localStorage.setItem('internal-' + url, JSON.stringify(stored));
+      refreshLinks();
+    }}
+  }} else if (ev.target.classList.contains('edit-link')) {{
+    const idx = parseInt(ev.target.dataset.index, 10);
+    const current = stored[idx] || '';
     const link = prompt('Enter internal link URL:', current);
     if (link !== null) {{
       if (link) {{
-        localStorage.setItem('internal-' + url, link);
+        stored[idx] = link;
+      }} else {{
+        stored.splice(idx, 1);
+      }}
+      if (stored.length) {{
+        localStorage.setItem('internal-' + url, JSON.stringify(stored));
       }} else {{
         localStorage.removeItem('internal-' + url);
       }}
       refreshLinks();
     }}
+  }} else if (ev.target.classList.contains('delete-link')) {{
+    const idx = parseInt(ev.target.dataset.index, 10);
+    stored.splice(idx, 1);
+    if (stored.length) {{
+      localStorage.setItem('internal-' + url, JSON.stringify(stored));
+    }} else {{
+      localStorage.removeItem('internal-' + url);
+    }}
+    refreshLinks();
   }}
 }});
 </script>
