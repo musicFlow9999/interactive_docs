@@ -9,16 +9,16 @@ This repo contains a small script that crawls the public Dynatrace documentation
 
 ## Usage
 
-Run the following command to crawl the live documentation site:
+Run the following command to crawl the live documentation site (requires Selenium and network access):
 
 ```bash
 python generate_docs_hierarchy.py
 ```
 
-If you already have a predefined taxonomy (for example `startertaxonomy.json`), you can generate the hierarchy offline:
+If you already have a predefined taxonomy (for example `dynatrace_fast_taxonomy.json`), you can generate the hierarchy offline:
 
 ```bash
-python generate_docs_hierarchy.py --taxonomy startertaxonomy.json --output taxonomy.html
+python generate_docs_hierarchy.py --taxonomy dynatrace_fast_taxonomy.json --output docs_hierarchy.html
 ```
 
 The script retrieves the Dynatrace documentation pages starting from `https://docs.dynatrace.com/docs`, builds a nested structure, and then writes:
