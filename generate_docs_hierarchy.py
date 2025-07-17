@@ -26,11 +26,17 @@ def build_html(data: dict) -> str:
  summary {{ cursor: pointer; font-weight: bold; }}
  button {{ margin-left: 4px; }}
  .description {{ color: #555; margin-left: 4px; }}
+ #toolbar {{ margin-bottom: 1em; }}
 </style>
 </head>
 <body>
-<h1>Dynatrace Documentation Hierarchy</h1>
-<div id="tree"></div>
+ <h1>Dynatrace Documentation Hierarchy</h1>
+ <div id="toolbar">
+  <button id="export-links">Export Links</button>
+  <button id="import-links">Import Links</button>
+  <input type="file" id="import-file" style="display:none" accept="application/json">
+ </div>
+ <div id="tree"></div>
 <script id="taxonomy-data" type="application/json">{json_str}</script>
 <script>
 const data = JSON.parse(document.getElementById('taxonomy-data').textContent);
@@ -83,6 +89,48 @@ function refreshLinks() {{
   }});
 }}
 refreshLinks();
+
+// Export links to a JSON file
+document.getElementById('export-links').addEventListener('click', () => {{
+  const store = {{}};
+  for (let i = 0; i < localStorage.length; i++) {{
+    const key = localStorage.key(i);
+    if (key && key.startsWith('internal-')) {{
+      store[key.slice('internal-'.length)] = JSON.parse(localStorage.getItem(key));
+    }}
+  }}
+  const blob = new Blob([JSON.stringify(store, null, 2)], {{type: 'application/json'}});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'internal-links.json';
+  a.click();
+  URL.revokeObjectURL(url);
+}});
+
+// Import links from a JSON file
+document.getElementById('import-links').addEventListener('click', () => {{
+  document.getElementById('import-file').click();
+}});
+document.getElementById('import-file').addEventListener('change', ev => {{
+  const file = ev.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {{
+    try {{
+      const data = JSON.parse(e.target.result);
+      Object.entries(data).forEach(([url, links]) => {{
+        localStorage.setItem('internal-' + url, JSON.stringify(links));
+      }});
+      refreshLinks();
+      alert('Links imported');
+    }} catch(err) {{
+      alert('Failed to import links: ' + err);
+    }}
+  }};
+  reader.readAsText(file);
+  ev.target.value = '';
+}});
 
 document.body.addEventListener('click', ev => {{
   const ul = ev.target.closest('.internal-link-list');

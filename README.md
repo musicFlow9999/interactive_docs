@@ -26,7 +26,7 @@ The script retrieves the Dynatrace documentation pages starting from `https://do
 - `docs_hierarchy.json` – a JSON representation of the hierarchy
 - `docs_hierarchy.html` – an interactive webpage listing pages with placeholder internal links
 
-Open `docs_hierarchy.html` in your browser to explore the hierarchy.
+Open `docs_hierarchy.html` in your browser to explore the hierarchy. The page stores any internal links you add in your browser's `localStorage`. Use the **Export Links** and **Import Links** buttons to save them to disk or load them back later.
 
 ## Limitations
 
