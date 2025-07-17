@@ -1,0 +1,755 @@
+{
+  "metadata": {
+    "base_url": "https://docs.dynatrace.com/docs",
+    "total_pages": 69,
+    "crawl_type": "strategic_fast",
+    "max_depth": 15,
+    "crawl_timestamp": "2025-07-17 00:20:32"
+  },
+  "structure": {
+    "root": {
+      "title": "Root",
+      "pages": [
+        {
+          "url": "https://docs.dynatrace.com/docs",
+          "title": "Welcome to Dynatrace Documentation",
+          "description": "Learn all you need to know about Dynatrace—how to get started, how to deploy Dynatrace, how to monitor with Dynatrace, and much more.",
+          "depth": 0
+        }
+      ],
+      "subsections": {}
+    },
+    "observe": {
+      "title": "Observe",
+      "pages": [
+        {
+          "url": "https://docs.dynatrace.com/docs/observe",
+          "title": "Observe",
+          "description": "Learn about Dynatrace solutions",
+          "depth": 1
+        }
+      ],
+      "subsections": {
+        "applications-and-microservices": {
+          "title": "Applications And Microservices",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/observe/applications-and-microservices",
+              "title": "Application Observability",
+              "description": "Get familiar with application observability capabilities in Dynatrace.",
+              "depth": 2
+            }
+          ]
+        },
+        "digital-experience": {
+          "title": "Digital Experience",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/observe/digital-experience",
+              "title": "Digital Experience",
+              "description": "Optimize end-user experience with Digital Experience Monitoring to ensure application performance and availability across all channels.",
+              "depth": 2
+            }
+          ]
+        },
+        "infrastructure-monitoring": {
+          "title": "Infrastructure Monitoring",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/observe/infrastructure-monitoring",
+              "title": "Infrastructure Observability",
+              "description": "The application infrastructure, including cloud and container platforms, that Dynatrace can monitor",
+              "depth": 2
+            }
+          ]
+        },
+        "business-analytics": {
+          "title": "Business Analytics",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/observe/business-analytics",
+              "title": "Business Analytics",
+              "description": "Basic concepts, setup and configuration, and use cases for Dynatrace Business Analytics",
+              "depth": 2
+            }
+          ]
+        }
+      }
+    },
+    "analyze-explore-automate": {
+      "title": "Analyze Explore Automate",
+      "pages": [
+        {
+          "url": "https://docs.dynatrace.com/docs/analyze-explore-automate",
+          "title": "Analyze, Explore, and Automate",
+          "description": "Get started with observability in Dynatrace.",
+          "depth": 1
+        }
+      ],
+      "subsections": {
+        "dynatrace-for-ai-observability": {
+          "title": "Dynatrace For Ai Observability",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/analyze-explore-automate/dynatrace-for-ai-observability",
+              "title": "AI and LLM Observability",
+              "description": "Learn about AI and LLM observability, what AI observability is, how Dynatrace observes Generative AI (LLM) models and AI SaaS services, and much more.",
+              "depth": 2
+            }
+          ]
+        },
+        "dashboards-and-notebooks": {
+          "title": "Dashboards And Notebooks",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/analyze-explore-automate/dashboards-and-notebooks",
+              "title": "Dashboards and Notebooks",
+              "description": "Dashboards and Notebooks",
+              "depth": 2
+            },
+            {
+              "url": "https://docs.dynatrace.com/docs/analyze-explore-automate/dashboards-and-notebooks/notebooks",
+              "title": "Notebooks",
+              "description": "Analyze, visualize, and share insights from your observability data—all in one collaborative, customizable workspace.",
+              "depth": 2
+            }
+          ]
+        },
+        "data-observability": {
+          "title": "Data Observability",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/analyze-explore-automate/data-observability",
+              "title": "Data Observability",
+              "description": "Learn about how to observe the most important meta information about observed data by using Dynatrace capabilities.",
+              "depth": 2
+            }
+          ]
+        },
+        "compliance-and-resilience": {
+          "title": "Compliance And Resilience",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/analyze-explore-automate/compliance-and-resilience",
+              "title": "Compliance and resilience",
+              "description": "Build resilient IT systems and manage regulatory requirements with compliance and resilience capabilities from Dynatrace.",
+              "depth": 2
+            }
+          ]
+        },
+        "metrics": {
+          "title": "Metrics",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/analyze-explore-automate/metrics",
+              "title": "Metrics",
+              "description": "Metrics powered by Grail offer a comprehensive solution to manage your metrics data, in integration with logs, spans, and events, providing a unified approach to data analysis.",
+              "depth": 2
+            }
+          ]
+        },
+        "metrics-classic": {
+          "title": "Metrics Classic",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/analyze-explore-automate/metrics-classic",
+              "title": "Metrics Classic",
+              "description": "Learn about metrics classic that Dynatrace offers.",
+              "depth": 2
+            }
+          ]
+        },
+        "explorer": {
+          "title": "Explorer",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/analyze-explore-automate/explorer",
+              "title": "Data Explorer",
+              "description": "Query for metrics and transform results to gain desired insights.",
+              "depth": 2
+            }
+          ]
+        },
+        "workflows": {
+          "title": "Workflows",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/analyze-explore-automate/workflows",
+              "title": "Workflows",
+              "description": "Automate IT processes with Dynatrace Workflows—react to events, schedule tasks, and connect services.",
+              "depth": 2
+            }
+          ]
+        }
+      }
+    },
+    "manage": {
+      "title": "Manage",
+      "pages": [
+        {
+          "url": "https://docs.dynatrace.com/docs/manage",
+          "title": "Manage your Dynatrace",
+          "description": "Manage and configure your Dynatrace environment.",
+          "depth": 1
+        }
+      ],
+      "subsections": {
+        "identity-access-management": {
+          "title": "Identity Access Management",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/manage/identity-access-management",
+              "title": "Identity and access management (IAM)",
+              "description": "Configure users, groups and permissions.",
+              "depth": 2
+            }
+          ]
+        },
+        "hub": {
+          "title": "Hub",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/manage/hub",
+              "title": "Dynatrace Hub",
+              "description": "See the information about Dynatrace Hub.",
+              "depth": 2
+            }
+          ]
+        },
+        "tags-and-metadata": {
+          "title": "Tags And Metadata",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/manage/tags-and-metadata",
+              "title": "Tags and metadata",
+              "description": "Learn how to define tags and metadata. Understand how to use tags and metadata to organize your environment.",
+              "depth": 2
+            }
+          ]
+        },
+        "settings-20": {
+          "title": "Settings 20",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/manage/settings-20",
+              "title": "Settings 2.0",
+              "description": "Introduction to the Settings 2.0 framework",
+              "depth": 2
+            }
+          ]
+        },
+        "network-zones": {
+          "title": "Network Zones",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/manage/network-zones",
+              "title": "Network zones",
+              "description": "Find out how network zones work in Dynatrace.",
+              "depth": 2
+            }
+          ]
+        },
+        "credential-vault": {
+          "title": "Credential Vault",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/manage/credential-vault",
+              "title": "Credential vault",
+              "description": "Store and manage credentials in the credential vault.",
+              "depth": 2
+            }
+          ]
+        },
+        "account-management": {
+          "title": "Account Management",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/manage/account-management",
+              "title": "Account Management",
+              "description": "Manage your Dynatrace license, subscriptions, and platform adoption and environment health.",
+              "depth": 2
+            }
+          ]
+        },
+        "monitoring-consumption-classic": {
+          "title": "Monitoring Consumption Classic",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/manage/monitoring-consumption-classic",
+              "title": "Dynatrace classic licensing",
+              "description": "Understand how Dynatrace monitoring consumption is calculated for classic licenses.",
+              "depth": 2
+            }
+          ]
+        },
+        "segments": {
+          "title": "Segments",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/manage/segments",
+              "title": "Segments",
+              "description": "Segments logically structure monitoring data in Grail and function as convenient filters for data that users are allowed to access based on permissions.",
+              "depth": 2
+            }
+          ]
+        },
+        "data-privacy-and-security": {
+          "title": "Data Privacy And Security",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/manage/data-privacy-and-security",
+              "title": "Data privacy and security",
+              "description": "Learn how Dynatrace applies various security measures required to protect private data.",
+              "depth": 2
+            }
+          ]
+        }
+      }
+    },
+    "ingest-from": {
+      "title": "Ingest From",
+      "pages": [
+        {
+          "url": "https://docs.dynatrace.com/docs/ingest-from",
+          "title": "Ingest data",
+          "description": "Learn how to install and configure ActiveGate and OneAgent on various platforms.",
+          "depth": 1
+        }
+      ],
+      "subsections": {
+        "google-cloud-platform": {
+          "title": "Google Cloud Platform",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/ingest-from/google-cloud-platform",
+              "title": "Set up Dynatrace on Google Cloud",
+              "description": "Monitor Google Cloud with Dynatrace.",
+              "depth": 2
+            }
+          ]
+        },
+        "setup-on-container-platforms": {
+          "title": "Setup On Container Platforms",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/ingest-from/setup-on-container-platforms/heroku",
+              "title": "Set up Dynatrace on Heroku",
+              "description": "Install OneAgent to monitor applications running on Heroku.",
+              "depth": 2
+            },
+            {
+              "url": "https://docs.dynatrace.com/docs/ingest-from/setup-on-container-platforms/docker",
+              "title": "Set up Dynatrace on Docker",
+              "description": "Deploy OneAgent on Docker.",
+              "depth": 2
+            },
+            {
+              "url": "https://docs.dynatrace.com/docs/ingest-from/setup-on-container-platforms",
+              "title": "Set up Dynatrace on container and PaaS platforms",
+              "description": "Deploy Dynatrace on various container and PaaS platforms.",
+              "depth": 2
+            }
+          ]
+        },
+        "discovery-coverage-app": {
+          "title": "Discovery Coverage App",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/ingest-from/discovery-coverage-app",
+              "title": "Discovery & Coverage",
+              "description": "Discover and remediate monitoring coverage gaps at scale.",
+              "depth": 2
+            }
+          ]
+        },
+        "technology-support": {
+          "title": "Technology Support",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/ingest-from/technology-support",
+              "title": "Technology support",
+              "description": "Find technical details related to Dynatrace support for specific platforms and development frameworks.",
+              "depth": 2
+            }
+          ]
+        },
+        "setup-on-k8s": {
+          "title": "Setup On K8S",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/ingest-from/setup-on-k8s",
+              "title": "Set up Dynatrace on Kubernetes",
+              "description": "Ways to deploy and configure Dynatrace on Kubernetes",
+              "depth": 2
+            }
+          ]
+        },
+        "dynatrace-oneagent": {
+          "title": "Dynatrace Oneagent",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/ingest-from/dynatrace-oneagent",
+              "title": "Dynatrace OneAgent",
+              "description": "Understand the important concepts related to OneAgent and find out how to install and operate OneAgent on different platforms.",
+              "depth": 2
+            },
+            {
+              "url": "https://docs.dynatrace.com/docs/ingest-from/dynatrace-oneagent/installation-and-operation/solaris",
+              "title": "Solaris",
+              "description": "Learn how to install, update and troubleshoot OneAgent on Solaris.",
+              "depth": 2
+            }
+          ]
+        },
+        "extensions20": {
+          "title": "Extensions20",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/ingest-from/extensions20",
+              "title": "Extensions",
+              "description": "Learn how to create and manage extensions under the Dynatrace Extensions 2.0 framework.",
+              "depth": 2
+            }
+          ]
+        }
+      }
+    },
+    "secure": {
+      "title": "Secure",
+      "pages": [
+        {
+          "url": "https://docs.dynatrace.com/docs/secure",
+          "title": "Secure",
+          "description": "Detect, monitor, remediate vulnerabilities at runtime, and block attacks on your applications.",
+          "depth": 1
+        }
+      ],
+      "subsections": {
+        "use-cases": {
+          "title": "Use Cases",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/secure/use-cases",
+              "title": "Use cases",
+              "description": "Use case scenarios for Application Security and Threat Observability.",
+              "depth": 2
+            }
+          ]
+        },
+        "security-investigator": {
+          "title": "Security Investigator",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/secure/security-investigator",
+              "title": "Security Investigator",
+              "description": "Combine Grail functionalities for threat hunting, incident solving, and root cause analysis.",
+              "depth": 2
+            }
+          ]
+        },
+        "faq": {
+          "title": "Faq",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/secure/faq",
+              "title": "Application Security FAQ",
+              "description": "Frequently asked questions about Dynatrace Application Security.",
+              "depth": 2
+            }
+          ]
+        },
+        "vulnerabilities": {
+          "title": "Vulnerabilities",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/secure/vulnerabilities",
+              "title": "Vulnerabilities",
+              "description": "Prioritize and efficiently manage vulnerabilities in your monitored environments.",
+              "depth": 2
+            }
+          ]
+        },
+        "devsecops-lifecycle-coverage": {
+          "title": "Devsecops Lifecycle Coverage",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/secure/devsecops-lifecycle-coverage",
+              "title": "DevSecOps Lifecycle Coverage with Snyk",
+              "description": "Set up and configure DevSecOps Lifecycle Coverage with Snyk.",
+              "depth": 2
+            }
+          ]
+        },
+        "application-security": {
+          "title": "Application Security",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/secure/application-security",
+              "title": "Application Security",
+              "description": "Access the Dynatrace Application Security functionalities.",
+              "depth": 2
+            }
+          ]
+        },
+        "threat-observability": {
+          "title": "Threat Observability",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/secure/threat-observability",
+              "title": "Threat Observability",
+              "description": "Quickly detect, investigate, and respond to threats with intelligent automation.",
+              "depth": 2
+            }
+          ]
+        },
+        "xspm": {
+          "title": "Xspm",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/secure/xspm",
+              "title": "Security Posture Management",
+              "description": "Detect, manage, and take action on security and compliance findings.",
+              "depth": 2
+            }
+          ]
+        },
+        "threats-and-exploits": {
+          "title": "Threats And Exploits",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/secure/threats-and-exploits",
+              "title": "Threats & Exploits",
+              "description": "Understand, triage, and investigate application security findings and alerts.",
+              "depth": 2
+            }
+          ]
+        }
+      }
+    },
+    "whats-new": {
+      "title": "Whats New",
+      "pages": [
+        {
+          "url": "https://docs.dynatrace.com/docs/whats-new",
+          "title": "What's new in Dynatrace",
+          "description": "Read the product news and the release notes and find out which Documentation topics are new.",
+          "depth": 1
+        }
+      ],
+      "subsections": {
+        "dynatrace-api": {
+          "title": "Dynatrace Api",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/whats-new/dynatrace-api",
+              "title": "Dynatrace API changelog",
+              "description": "Changelog for Dynatrace API",
+              "depth": 2
+            }
+          ]
+        },
+        "cloudfoundry-integrations": {
+          "title": "Cloudfoundry Integrations",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/whats-new/cloudfoundry-integrations",
+              "title": "Cloud Foundry Integrations",
+              "description": "Release notes for Cloud Foundry Integrations from Dynatrace",
+              "depth": 2
+            }
+          ]
+        },
+        "technology": {
+          "title": "Technology",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/whats-new/technology",
+              "title": "New technology support",
+              "description": "Discover new technologies that can be monitored with Dynatrace.",
+              "depth": 2
+            },
+            {
+              "url": "https://docs.dynatrace.com/docs/whats-new/technology/end-of-support-news",
+              "title": "End-of-support announcements",
+              "description": "End of support announcements for technologies supported by Dynatrace.",
+              "depth": 2
+            }
+          ]
+        },
+        "documentation": {
+          "title": "Documentation",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/whats-new/documentation",
+              "title": "New Documentation articles",
+              "description": "See what Documentation topics have been added recently.",
+              "depth": 2
+            }
+          ]
+        },
+        "saas": {
+          "title": "Saas",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/whats-new/saas",
+              "title": "What's new in Dynatrace SaaS",
+              "description": "Release notes for Dynatrace SaaS",
+              "depth": 2
+            }
+          ]
+        },
+        "preview-releases": {
+          "title": "Preview Releases",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/whats-new/preview-releases",
+              "title": "Preview program",
+              "description": "Learn about our Preview releases and how you can participate in them.",
+              "depth": 2
+            }
+          ]
+        },
+        "dynatrace-operator": {
+          "title": "Dynatrace Operator",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/whats-new/dynatrace-operator",
+              "title": "Dynatrace Operator release notes",
+              "description": "Release notes for Dynatrace Operator",
+              "depth": 2
+            }
+          ]
+        },
+        "oneagent": {
+          "title": "Oneagent",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/whats-new/oneagent",
+              "title": "OneAgent release notes",
+              "description": "Release notes for Dynatrace OneAgent",
+              "depth": 2
+            }
+          ]
+        },
+        "edgeconnect": {
+          "title": "Edgeconnect",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/whats-new/edgeconnect",
+              "title": "EdgeConnect release notes",
+              "description": "Release notes for EdgeConnect",
+              "depth": 2
+            }
+          ]
+        }
+      }
+    },
+    "deliver": {
+      "title": "Deliver",
+      "pages": [
+        {
+          "url": "https://docs.dynatrace.com/docs/deliver",
+          "title": "Software Delivery",
+          "description": "The capabilities of Dynatrace Automations",
+          "depth": 1
+        }
+      ],
+      "subsections": {
+        "ownership": {
+          "title": "Ownership",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/deliver/ownership",
+              "title": "Ownership",
+              "description": "Map team ownership to monitored entities for better collaboration, task assignment, incident and vulnerability response, and service-level management.",
+              "depth": 2
+            },
+            {
+              "url": "https://docs.dynatrace.com/docs/deliver/ownership/ownership-app",
+              "title": "Ownership",
+              "description": "It provides custom actions to define workflows integrating entity owners and their contact information.",
+              "depth": 2
+            }
+          ]
+        },
+        "quality-gates": {
+          "title": "Quality Gates",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/deliver/quality-gates",
+              "title": "Release validation",
+              "description": "Validate the releases of your business-critical services",
+              "depth": 2
+            }
+          ]
+        },
+        "service-level-objectives-classic": {
+          "title": "Service Level Objectives Classic",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/deliver/service-level-objectives-classic",
+              "title": "Service-Level Objectives Classic",
+              "description": "Monitor and alert on service-level objectives with Dynatrace in Service-Level Objectives Classic.",
+              "depth": 2
+            }
+          ]
+        },
+        "site-reliability-guardian": {
+          "title": "Site Reliability Guardian",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/deliver/site-reliability-guardian",
+              "title": "Site Reliability Guardian",
+              "description": "Automatically validate the performance, availability, and capacity objectives of your critical services to make the right release decision.",
+              "depth": 2
+            }
+          ]
+        },
+        "self-service-kubernetes-use-case": {
+          "title": "Self Service Kubernetes Use Case",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/deliver/self-service-kubernetes-use-case",
+              "title": "Predict and autoscale Kubernetes workloads",
+              "description": "Learn how to scale your Kubernetes workloads proactively before the load increases using Davis AI predictions.",
+              "depth": 2
+            }
+          ]
+        },
+        "test-pipeline-observability": {
+          "title": "Test Pipeline Observability",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/deliver/test-pipeline-observability",
+              "title": "Test pipeline observability",
+              "description": "Utilize Dynatrace to observe and analyze test pipelines effectively",
+              "depth": 2
+            }
+          ]
+        },
+        "release-validation-automated": {
+          "title": "Release Validation Automated",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/deliver/release-validation-automated",
+              "title": "Automate release validation",
+              "description": "Learn how to automatically validate your business-critical service release using this hands-on tutorial.",
+              "depth": 2
+            }
+          ]
+        },
+        "release-monitoring": {
+          "title": "Release Monitoring",
+          "pages": [
+            {
+              "url": "https://docs.dynatrace.com/docs/deliver/release-monitoring",
+              "title": "Release monitoring",
+              "description": "Detect versions of monitored applications and analyze the software product lifecycle of your releases.",
+              "depth": 2
+            }
+          ]
+        }
+      }
+    }
+  }
+}
