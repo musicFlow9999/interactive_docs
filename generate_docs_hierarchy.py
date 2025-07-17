@@ -22,6 +22,7 @@ def build_html(data: dict) -> str:
  body {{ font-family: Arial, sans-serif; }}
  ul {{ list-style: none; padding-left: 1em; }}
  li {{ margin: 4px 0; }}
+ .internal-link-list {{ margin-left: 1.5em; }}
  summary {{ cursor: pointer; font-weight: bold; }}
  button {{ margin-left: 4px; }}
  .description {{ color: #555; margin-left: 4px; }}
@@ -42,9 +43,9 @@ function createSection(section) {{
   if (section.pages) {{
     section.pages.forEach(pg => {{
       const li = document.createElement('li');
-      li.innerHTML = `<a href="${{pg.url}}" target="_blank">${{pg.title}}</a>` +
-                     `<span class="description"> - ${{pg.description}}</span>` +
-                     ` <span class="internal-link" data-url="${{pg.url}}"></span>`;
+      li.innerHTML = `<div><a href="${{pg.url}}" target="_blank">${{pg.title}}</a>` +
+                     `<span class="description"> - ${{pg.description}}</span></div>` +
+                     `<ul class="internal-link-list" data-url="${{pg.url}}"></ul>`;
       ul.appendChild(li);
     }});
   }}
@@ -59,30 +60,34 @@ function createSection(section) {{
 const container = document.getElementById('tree');
 Object.values(data.structure).forEach(sec => container.appendChild(createSection(sec)));
 function refreshLinks() {{
-  document.querySelectorAll('.internal-link').forEach(span => {{
-    const url = span.dataset.url;
+  document.querySelectorAll('.internal-link-list').forEach(ul => {{
+    const url = ul.dataset.url;
     let stored = JSON.parse(localStorage.getItem('internal-' + url) || '[]');
     if (stored.length && typeof stored[0] === 'string') {{
       stored = stored.map(l => ({{url: l, name: '', description: ''}}));
       localStorage.setItem('internal-' + url, JSON.stringify(stored));
     }}
-    span.innerHTML = '';
+    ul.innerHTML = '';
     stored.forEach((link, idx) => {{
+      const li = document.createElement('li');
       const text = link.name || `internal ${{idx + 1}}`;
       const desc = link.description ? ` <span class="description">- ${{link.description}}</span>` : '';
-      span.innerHTML += `<a href="${{link.url}}" target="_blank">${{text}}</a>${{desc}}` +
-                        ` <button class="edit-link" data-index="${{idx}}">edit</button>` +
-                        ` <button class="delete-link" data-index="${{idx}}">delete</button> `;
+      li.innerHTML = `<a href="${{link.url}}" target="_blank">${{text}}</a>${{desc}}` +
+                     ` <button class="edit-link" data-index="${{idx}}">edit</button>` +
+                     ` <button class="delete-link" data-index="${{idx}}">delete</button>`;
+      ul.appendChild(li);
     }});
-    span.innerHTML += `<button class="add-link">add internal link</button>`;
+    const addLi = document.createElement('li');
+    addLi.innerHTML = `<button class="add-link">add internal link</button>`;
+    ul.appendChild(addLi);
   }});
 }}
 refreshLinks();
 
 document.body.addEventListener('click', ev => {{
-  const span = ev.target.closest('.internal-link');
-  if (!span) return;
-  const url = span.dataset.url;
+  const ul = ev.target.closest('.internal-link-list');
+  if (!ul) return;
+  const url = ul.dataset.url;
   let stored = JSON.parse(localStorage.getItem('internal-' + url) || '[]');
   if (stored.length && typeof stored[0] === 'string') {{
     stored = stored.map(l => ({{url: l, name: '', description: ''}}));
