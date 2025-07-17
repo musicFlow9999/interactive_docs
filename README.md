@@ -6,6 +6,7 @@ This repo contains a small script that crawls the public Dynatrace documentation
 
 - Python 3.12+
 - `requests` and `beautifulsoup4` (`pip install requests beautifulsoup4`)
+- `Flask` and `Flask-CORS` if you want to use the optional storage server
 
 ## Usage
 
@@ -27,6 +28,24 @@ The script retrieves the Dynatrace documentation pages starting from `https://do
 - `docs_hierarchy.html` – an interactive webpage listing pages with placeholder internal links
 
 Open `docs_hierarchy.html` in your browser to explore the hierarchy. The page stores any internal links you add in your browser's `localStorage`. Use the **Export Links** and **Import Links** buttons to save them to disk or load them back later.
+
+### Using external storage
+
+You can run a small Flask server to keep the internal links centrally so that every browser sees the same data. First install the dependencies and start the server:
+
+```bash
+pip install Flask Flask-CORS
+python storage_server.py
+```
+
+Then generate the HTML pointing at the server:
+
+```bash
+python generate_docs_hierarchy.py --taxonomy dynatrace_fast_taxonomy.json \
+  --output docs_hierarchy.html --server-url http://localhost:5000
+```
+
+When opened in the browser, the page will load and save links via that server instead of `localStorage`.
 
 ## Limitations
 
